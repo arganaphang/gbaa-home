@@ -17,7 +17,7 @@ const Index: NextPage = () => {
             <span className="hidden flex-[1]  font-light text-gray-400 md:block">
               Author
             </span>
-            <p className="flex-[4] text-sm">John Doe, {Date()}</p>
+            <p className="flex-[4] text-sm">John Doe, Sat Oct 01 2022</p>
           </div>
           <div className="flex flex-col py-4 md:flex-row">
             <span className="hidden flex-[1] font-light text-gray-400 md:block">
