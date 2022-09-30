@@ -3,16 +3,27 @@ generator client {
 }
 
 datasource db {
-    provider = "sqlite"
+    provider = "postgres"
     url      = env("DATABASE_URL")
 }
 
-model Example {
-    id String @id @default(cuid())
+enum PostType {
+    Schedule
+    News
+    Devotion
+}
+
+model Posts {
+    id         String   @id @default(uuid())
+    title      String
+    content    String
+    type       String
+    created_at DateTime @default(now())
+    updated_at DateTime @updatedAt
 }
 
 model Account {
-    id                String  @id @default(cuid())
+    id                String  @id @default(uuid())
     userId            String
     type              String
     provider          String
@@ -30,7 +41,7 @@ model Account {
 }
 
 model Session {
-    id           String   @id @default(cuid())
+    id           String   @id @default(uuid())
     sessionToken String   @unique
     userId       String
     expires      DateTime
@@ -38,7 +49,7 @@ model Session {
 }
 
 model User {
-    id            String    @id @default(cuid())
+    id            String    @id @default(uuid())
     name          String?
     email         String?   @unique
     emailVerified DateTime?

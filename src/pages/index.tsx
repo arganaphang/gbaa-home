@@ -1,10 +1,13 @@
 import type { NextPage } from "next";
+import { Layout } from "~/components";
 
 const Index: NextPage = () => {
   return (
-    <>
-      <h1>Hello World</h1>
-    </>
+    <Layout title="Baptis Amanat Agung">
+      <section className="min-h-screen"></section>
+      <section className="min-h-screen"></section>
+      <section className="min-h-screen"></section>
+    </Layout>
   );
 };
 
