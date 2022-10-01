@@ -2,6 +2,7 @@ import NextAuth, { type NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { prisma } from "~/server/db/client";
+import bcrypt from "bcryptjs";
 
 export const authOptions: NextAuthOptions = {
   callbacks: {
@@ -28,11 +29,23 @@ export const authOptions: NextAuthOptions = {
           placeholder: "********",
         },
       },
-      async authorize(credentials, req) {
-        const user = { id: 1, name: "J Smith", email: "jsmith@example.com" };
-        if (user) {
-          return user;
-        } else {
+      async authorize(credentials) {
+        try {
+          const user = await prisma.user.findUnique({
+            where: {
+              email: credentials?.email,
+            },
+          });
+          if (
+            bcrypt.compareSync(
+              credentials?.password ?? "",
+              user?.password ?? ""
+            )
+          ) {
+            return user;
+          }
+          return null;
+        } catch (e) {
           return null;
         }
       },

@@ -15,8 +15,8 @@ model Posts {
     created_at DateTime  @default(now())
     updated_at DateTime  @updatedAt
     deleted_at DateTime?
-    authorId   String
-    author     User      @relation(fields: [authorId], references: [id])
+    authorId   String?
+    author     User?     @relation(fields: [authorId], references: [id])
 }
 
 model User {
